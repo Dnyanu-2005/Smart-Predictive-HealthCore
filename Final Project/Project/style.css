@@ -1,0 +1,60 @@
+*{
+  margin:0;
+  padding:0;
+  font-family:Poppins;
+}
+body{background:#eef2ff;}
+
+header{
+  background:#4a6cf7;
+  color:white;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+}
+
+nav a{
+  color:white;
+  margin:0 10px;
+  text-decoration:none;
+}
+
+.hero{
+  background:linear-gradient(90deg,#4a6cf7,#6b8cff);
+  color:white;
+  text-align:center;
+  padding:80px 20px;
+}
+
+#about{
+  padding:40px;
+  text-align:center;
+}
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  padding:40px;
+}
+
+.card{
+  background:white;
+  padding:30px;
+  border-radius:15px;
+  text-align:center;
+  cursor:pointer;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+  transition:.3s;
+}
+.card:hover{
+  transform:scale(1.05);
+  background:#e5ebff;
+}
+
+footer{
+  background:#4a6cf7;
+  color:white;
+  text-align:center;
+  padding:20px;
+}

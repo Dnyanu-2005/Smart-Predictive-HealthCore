@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Health Chatbot</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Poppins;
+}
+body{
+  background:linear-gradient(135deg,#4a6cf7,#6c8cff);
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.chatbot{
+  width:90%;
+  max-width:900px;
+  height:90vh;
+  background:#fff;
+  border-radius:20px;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 0 30px rgba(0,0,0,.3);
+}
+.header{
+  background:#4a6cf7;
+  color:#fff;
+  padding:20px;
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+}
+.chat-area{
+  flex:1;
+  padding:20px;
+  overflow-y:auto;
+  background:#f4f6ff;
+}
+.message{
+  max-width:70%;
+  margin:12px 0;
+  padding:12px 18px;
+  border-radius:15px;
+  font-size:16px;
+}
+.user{
+  background:#4a6cf7;
+  color:#fff;
+  margin-left:auto;
+}
+.bot{
+  background:#e5ebff;
+  color:#000;
+}
+.input-area{
+  display:flex;
+  border-top:1px solid #ccc;
+}
+.input-area input{
+  flex:1;
+  padding:18px;
+  font-size:16px;
+  border:none;
+  outline:none;
+}
+.input-area button{
+  padding:0 30px;
+  background:#4a6cf7;
+  color:white;
+  border:none;
+  font-size:16px;
+  cursor:pointer;
+}
+.input-area button:hover{
+  background:#3b5de0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="chatbot">
+  <div class="header">🤖 Smart Predictive HealthCare Chatbot</div>
+  <div class="chat-area" id="chatArea">
+    <div class="message bot">Hello! I am your AI Health Assistant. You can ask about symptoms, diseases, medicines or health tips.</div>
+  </div>
+
+  <div class="input-area">
+    <input type="text" id="userInput" placeholder="Type your health problem here..." onkeypress="if(event.key==='Enter')send()">
+    <button onclick="send()">Send</button>
+  </div>
+</div>
+
+<script>
+function send(){
+ let input=document.getElementById("userInput");
+ let text=input.value.trim();
+ if(text==="")return;
+
+ add(text,"user");
+ input.value="";
+ setTimeout(()=>botReply(text),500);
+}
+
+function add(text,type){
+ let chat=document.getElementById("chatArea");
+ let div=document.createElement("div");
+ div.className="message "+type;
+ div.innerText=text;
+ chat.appendChild(div);
+ chat.scrollTop=chat.scrollHeight;
+}
+
+function botReply(msg){
+ msg=msg.toLowerCase();
+ let r="I am not sure. Please describe symptoms like fever, headache, cough, pain, diabetes, BP etc.";
+
+ if(msg.includes("fever")) r="Fever indicates infection. Drink fluids, rest, and take paracetamol if needed.";
+ else if(msg.includes("cough")) r="Cough may be viral or allergic. Warm water and steam inhalation helps.";
+ else if(msg.includes("headache")) r="Headache can be due to stress, dehydration or migraine. Rest and hydration recommended.";
+ else if(msg.includes("diabetes")) r="Diabetes causes high blood sugar. Control with diet, exercise and regular medicine.";
+ else if(msg.includes("bp") || msg.includes("blood pressure")) r="High BP increases heart risk. Reduce salt, manage stress and check regularly.";
+ else if(msg.includes("cold")) r="Cold is viral. Drink warm fluids and rest.";
+ else if(msg.includes("chest pain")) r="Chest pain can be serious. Please visit nearest hospital immediately.";
+ else if(msg.includes("covid")) r="COVID symptoms include fever, cough, breathlessness. Test and isolate if needed.";
+ else if(msg.includes("stomach")) r="Stomach pain may be due to acidity or infection. Avoid spicy food.";
+ else if(msg.includes("health tips")) r="Drink water, eat fruits, exercise daily, sleep well.";
+
+ add(r,"bot");
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>User Profile - Smart Predictive HealthCare</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:Poppins, Arial;
+  background:#f2f6ff;
+}
+header{
+  background:#1f4eff;
+  color:white;
+  padding:15px;
+  text-align:center;
+  font-size:22px;
+}
+.container{
+  max-width:900px;
+  margin:20px auto;
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+input, select{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:6px;
+  border:1px solid #ccc;
+}
+button{
+  background:#1f4eff;
+  color:white;
+  border:none;
+  padding:12px;
+  width:100%;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:16px;
+}
+button:hover{
+  background:#163ddb;
+}
+.profile{
+  display:none;
+  margin-top:20px;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+td{
+  padding:10px;
+  border-bottom:1px solid #ddd;
+}
+th{
+  text-align:left;
+  color:#1f4eff;
+}
+.edit{
+  background:orange;
+  margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<header>👤 Patient Profile – Smart Predictive HealthCare</header>
+
+<div class="container">
+
+<form id="userForm">
+<input placeholder="Full Name" id="name" required>
+<input type="date" id="dob" required>
+<input placeholder="Age" id="age" required>
+<select id="gender">
+<option>Male</option><option>Female</option><option>Other</option>
+</select>
+<input placeholder="Height (cm)" id="height">
+<input placeholder="Weight (kg)" id="weight">
+<select id="marital">
+<option>Single</option><option>Married</option>
+</select>
+<input placeholder="Blood Group" id="blood">
+<input placeholder="Phone Number" id="phone">
+<input placeholder="City" id="city">
+<textarea id="history" placeholder="Medical History"></textarea>
+
+<button type="submit">Save Profile</button>
+</form>
+
+<div class="profile" id="profile">
+<h2>📋 Patient Information</h2>
+<table id="profileData"></table>
+<button class="edit" onclick="edit()">Edit Profile</button>
+</div>
+
+</div>
+
+<script>
+let form=document.getElementById("userForm");
+let profile=document.getElementById("profile");
+
+form.onsubmit=function(e){
+ e.preventDefault();
+
+ let data={
+  name:name.value,
+  dob:dob.value,
+  age:age.value,
+  gender:gender.value,
+  height:height.value,
+  weight:weight.value,
+  marital:marital.value,
+  blood:blood.value,
+  phone:phone.value,
+  city:city.value,
+  history:history.value
+ };
+ localStorage.setItem("userProfile",JSON.stringify(data));
+ show();
+}
+
+function show(){
+ let data=JSON.parse(localStorage.getItem("userProfile"));
+ if(!data) return;
+
+ let html=`
+ <tr><th>Name</th><td>${data.name}</td></tr>
+ <tr><th>DOB</th><td>${data.dob}</td></tr>
+ <tr><th>Age</th><td>${data.age}</td></tr>
+ <tr><th>Gender</th><td>${data.gender}</td></tr>
+ <tr><th>Height</th><td>${data.height} cm</td></tr>
+ <tr><th>Weight</th><td>${data.weight} kg</td></tr>
+ <tr><th>Marital Status</th><td>${data.marital}</td></tr>
+ <tr><th>Blood Group</th><td>${data.blood}</td></tr>
+ <tr><th>Phone</th><td>${data.phone}</td></tr>
+ <tr><th>City</th><td>${data.city}</td></tr>
+ <tr><th>Medical History</th><td>${data.history}</td></tr>
+ `;
+ document.getElementById("profileData").innerHTML=html;
+ form.style.display="none";
+ profile.style.display="block";
+}
+
+function edit(){
+ form.style.display="block";
+ profile.style.display="none";
+ let data=JSON.parse(localStorage.getItem("userProfile"));
+ name.value=data.name;
+ dob.value=data.dob;
+ age.value=data.age;
+ gender.value=data.gender;
+ height.value=data.height;
+ weight.value=data.weight;
+ marital.value=data.marital;
+ blood.value=data.blood;
+ phone.value=data.phone;
+ city.value=data.city;
+ history.value=data.history;
+}
+
+show();
+</script>
+
+</body>
+</html>
